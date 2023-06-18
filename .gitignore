@@ -1,0 +1,6 @@
+**/.env
+**/node_modules
+**/*.sqlite
+**/.idea
+**/__pycache__
+../.vscode
