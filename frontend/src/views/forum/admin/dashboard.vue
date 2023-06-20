@@ -6,5 +6,5 @@
 
 <script setup>
 // import Canvas from '@/components/canvas.vue'
-import List from './list.vue'
+import List from './List.vue'
 </script>

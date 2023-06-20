@@ -1,5 +1,6 @@
 from extensions import app
 from api.auth import *
+from api.articles import *
 
 
 def register_api(view: MethodView, endpoint, url, pk, pk_type):
@@ -18,4 +19,5 @@ def register_api(view: MethodView, endpoint, url, pk, pk_type):
 
 def register_all():
     register_api(UserApi, 'user_api', '/user/', 'username', 'str')
+    register_api(ArticleApi, 'article_api', '/article/', 'id', 'int')
 

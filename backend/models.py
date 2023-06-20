@@ -73,14 +73,16 @@ class Article(db.Model):
     time = db.Column(db.DateTime, nullable=False)
     username = db.Column(db.String(100), db.ForeignKey('user.username'), nullable=False)
     visits = db.Column(db.Integer, nullable=False)
+    tag = db.Column(db.String(50), nullable=False)
     replies = db.relationship('Comment',
                               backref='article')
 
     @staticmethod
     def init_db():
         articles = [
-            Article(id=1, title='ikun 们进', content='./1.md', time=datetime.datetime.now(), username='ruoy', visits=0),
-            Article(id=2, title='溜 igs', content='./2.md', time=datetime.datetime.now(), username='dogcatcher', visits=0)
+            Article(id=1, title='ikun 们进', content='./1.md', time=datetime.datetime.now(), username='ruoy', visits=1, tag='1'),
+            Article(id=2, title='溜 igs', content='./2.md', time=datetime.datetime.now(), username='dogcatcher', visits=20, tag='1'),
+            Article(id=3, title='信安原理作业是什么', content='懵o.O', time=datetime.datetime.now(), username='sb', visits=10, tag='2-1')
         ]
         for article in articles:
             db.session.add(article)

@@ -9,45 +9,41 @@ const routes = [
     {
         path: '/login',
         name: 'Login',
-        component: () => import('@/views/login/login.vue')
+        component: () => import('@/views/login/Login.vue')
     },
     {
         path: '/signup',
         name: 'Signup',
-        component: () => import('@/views/signup/signup.vue')
+        component: () => import('@/views/signup/Signup.vue')
     },
-    {
-        path: '/home',
-        name: 'Home',
-        component: () => import('@/views/profile/home.vue')
-    },
+    // {
+    //     path: '/home',
+    //     name: 'Home',
+    //     component: () => import('@/views/profile/home.vue')
+    // },
     {
         path: '/forum',
         name: 'Forum',
-        component: () => import('@/views/forum/Page.vue'),
+        component: () => import('@/components/Page.vue'),
         redirect: '/forum/index',
         children: [
             {
                 path: 'dashboard',
                 name: 'Dashboard',
-                component: () => import('@/views/forum/admin/dashboard.vue')
+                component: () => import('@/views/forum/admin/Dashboard.vue')
             },
             {
                 path: 'index',
                 name: 'Index',
-                component: () => import('@/views/forum/index.vue')
+                component: () => import('@/views/forum/topics/Index.vue')
+            },
+            {
+                path: 'topics',
+                name: 'Topics',
+
             }
         ]
     },
-    {
-        path: '/admin',
-        redirect: '/admin/dashboard',
-    },
-    // {
-    //     path: '/admin/dashboard',
-    //     name: 'Dashboard',
-    //     component: () => import('@/views/admin/dashboard.vue')
-    // },
     {
         path: '/:pathMatch(.*)*',
         name: 'NotFound',

@@ -2,26 +2,7 @@ from flask.views import MethodView, request
 from models import *
 from extensions import app
 import json
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-
-
-def create_token(user):
-    s = Serializer(app.config['SECRET_KEY'], expires_in=60 * 60 * 24)
-    token = s.dumps({
-        'username': user.username,
-        'level': user.level
-    }).decode('ascii')
-    return token
-
-
-def verify_token():
-    s = Serializer(app.config['SECRET_KEY'])
-    token = request.headers['token']
-    if token is not None:
-        data = s.loads(token)
-        return data
-    return None
-
+from api.token import *
 
 class UserApi(MethodView):
     def post(self, username):
@@ -63,11 +44,6 @@ class UserApi(MethodView):
         datas = []
         if username is None:
             users = User.query.all()
-            # datas = [{
-            #     'username': user.username,
-            #     'email': user.email,
-            #     'level': user.level
-            # } for user in users]
         else:
             users = User.query.filter(User.username.like('%{key}%'.format(key=username)))
         for user in users:

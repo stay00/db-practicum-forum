@@ -33,7 +33,7 @@
 <script setup>
 // import { routerKey } from 'vue-router';
 import { useRouter } from 'vue-router'
-import SignupForm from './form.vue'
+import SignupForm from './SignupForm.vue'
 const router = useRouter();
 
 const changeRoute = () => {
