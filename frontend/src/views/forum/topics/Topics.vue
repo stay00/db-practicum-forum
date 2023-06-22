@@ -2,11 +2,14 @@
     <el-container class="full flex flex-col">
         <!-- <h5 class="mb-2">Default colors</h5> -->
         <el-menu class="full" default-active="1" mode="vertical" @open="handleOpen" @close="handleClose">
-            <el-menu-item index="1">
-                <el-icon>
+            <el-menu-item index="1" @click="router.push('/forum/index/')">
+                <!-- <el-icon>
                     <Top />
+                </el-icon> -->
+                <el-icon>
+                    <Opportunity />
                 </el-icon>
-                <span>热门</span>
+                <span>探索</span>
             </el-menu-item>
             <el-sub-menu index="2">
                 <template #title>
@@ -32,9 +35,12 @@
 import {
     Top,
     Menu as IconMenu,
+    Opportunity,
     Coffee,
     Reading,
 } from '@element-plus/icons-vue'
+import { useRouter } from 'vue-router';
+const router = useRouter()
 const handleOpen = (key: string, keyPath: string[]) => {
     console.log(key, keyPath)
 }

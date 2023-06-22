@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createRouter, createWebHashHistory } from "vue-router";
 import store from '@/store'
+import { compile } from "vue";
 const routes = [
     {
         path: '/',
@@ -16,11 +17,6 @@ const routes = [
         name: 'Signup',
         component: () => import('@/views/signup/Signup.vue')
     },
-    // {
-    //     path: '/home',
-    //     name: 'Home',
-    //     component: () => import('@/views/profile/home.vue')
-    // },
     {
         path: '/forum',
         name: 'Forum',
@@ -33,15 +29,34 @@ const routes = [
                 component: () => import('@/views/forum/admin/Dashboard.vue')
             },
             {
-                path: 'index',
-                name: 'Index',
-                component: () => import('@/views/forum/topics/Index.vue')
+                path: 'homepage/:username',
+                name: 'Home',
+                component: () => import('@/views/forum/profile/HomePage.vue')
             },
             {
-                path: 'topics',
-                name: 'Topics',
+                path: 'index',
+                name: 'Index',
+                component: () => import('@/views/forum/topics/Index.vue'),
+                redirect: { name: 'Display' },
+                children: [
+                    {
+                        path: 'display',
+                        name: 'Display',
+                        component: () => import('@/views/forum/topics/Display.vue'),
+                    },
+                    {
+                        path: 'article/:id',
+                        name: 'Article',
+                        component: () => import('@/views/forum/topics/Article.vue')
+                    }
+                ]
+            },
+            // {
+            //     path: 'profile/:username',
+            //     name: 'Profile',
+            //     component: () => import('@/views/forum/profile/Profile.vue')
+            // },
 
-            }
         ]
     },
     {
@@ -61,23 +76,31 @@ router.beforeEach((to, from) => {
     console.log(router)
     const token = Cookies.get('token')
     // 登陆验证
-    if(!token && to.path !== '/login' && to.path !== '/signup') {
+    if (!token && to.path !== '/login' && to.path !== '/signup') {
         ElNotification({
             title: 'Failure',
             message: '请先登录',
             type: 'error'
-          })
-        return {name: 'Login'}
+        })
+        return { name: 'Login' }
     }
     let data = Cookies.get('username')
     store.commit('set_userinfo', {
         username: data,
-      })
+    })
     // 防止重复登陆
     if (token && to.path === '/login') {
         return { name: 'Forum' }
     }
-
+    const level = Cookies.get('level')
+    if (level == 0 && to.path === '/forum/dashboard') {
+        ElNotification({
+            title: 'Failure',
+            message: '权限不足',
+            type: 'error'
+        })
+        return { name: 'Forum' }
+    }
     return true
 })
 

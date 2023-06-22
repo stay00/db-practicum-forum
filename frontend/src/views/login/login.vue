@@ -81,6 +81,7 @@ const onSubmit = (formRef) => {
           })
           Cookies.set('token', res.data.token, { expires: 1 })
           Cookies.set('username', username, { expires: 1 })
+          Cookies.set('level', res.data['level'], { expires: 1 })
           router.push('/forum/index')
         }
         else

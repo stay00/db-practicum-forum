@@ -69,7 +69,7 @@ def init_relation():
 class Article(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(50), nullable=False)
-    content = db.Column(db.String(50), nullable=False)
+    content = db.Column(db.Text, nullable=False)
     time = db.Column(db.DateTime, nullable=False)
     username = db.Column(db.String(100), db.ForeignKey('user.username'), nullable=False)
     visits = db.Column(db.Integer, nullable=False)
@@ -82,7 +82,9 @@ class Article(db.Model):
         articles = [
             Article(id=1, title='ikun 们进', content='./1.md', time=datetime.datetime.now(), username='ruoy', visits=1, tag='1'),
             Article(id=2, title='溜 igs', content='./2.md', time=datetime.datetime.now(), username='dogcatcher', visits=20, tag='1'),
-            Article(id=3, title='信安原理作业是什么', content='懵o.O', time=datetime.datetime.now(), username='sb', visits=10, tag='2-1')
+            Article(id=3, title='信安原理作业是什么', content='懵o.O', time=datetime.datetime.now(), username='sb', visits=10, tag='2-1'),
+            Article(id=4, title='test eq 20 chars', content='12345678901234567890', time=datetime.datetime(2023, 5, 1, 0, 1, 0), username='ruoy', visits=0, tag='2-2'),
+            Article(id=5, title='test gt 20 chars', content='123456789012345678901', time=datetime.datetime(2023, 5, 1, 0, 2, 0), username='ruoy', visits=0, tag='2-2'),
         ]
         for article in articles:
             db.session.add(article)
